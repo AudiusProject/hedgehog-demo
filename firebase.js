@@ -1,5 +1,3 @@
-// Initialize Firebase
-
 class Firebase {
 
   constructor() {
