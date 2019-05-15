@@ -24,7 +24,7 @@ const messages = {
 const firebase = new Firebase()
 const setAuthFn = async (obj) => firebase.createIfNotExists(AUTH_TABLE, obj.lookupKey, obj)
 const setUserFn = async (obj) => firebase.createIfNotExists(USER_TABLE, obj.email, obj)
-const getFn = async (obj) => firebase.readRecordFromFirebase(obj)
+const getFn = async (obj) => firebase.readRecordFromFirebase(AUTH_TABLE, obj)
 const hedgehog = new Hedgehog(getFn, setAuthFn, setUserFn)
 
 const Tabs = (props) => {
@@ -92,8 +92,6 @@ const App = (props) => {
   const [activeTab, setActiveTab] = useState(0)
   const [errorMessage, setErrorMessage] = useState('')
   const [loading, setLoading] = useState(false)
-
-  const confirmPasswordRef = useRef(null)
 
   const checkWalletStatus = () => {
     if (hedgehog.isLoggedIn()) {
@@ -183,7 +181,6 @@ const App = (props) => {
                 />
                 <div>
                   <input
-                    ref={confirmPasswordRef}
                     className={errorMessage ? 'error' : null}
                     placeholder='Confirm Password'
                     onChange={(e) => setPasswordConfirmation(e.target.value)}

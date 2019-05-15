@@ -1,4 +1,3 @@
-const AUTH_TABLE = 'Authentications'
 class Firebase {
 
   constructor() {
@@ -40,10 +39,10 @@ class Firebase {
     }
   }
   
-  async readRecordFromFirebase(obj) {
+  async readRecordFromFirebase(tableName, obj) {
     let lookupKey = obj.lookupKey
     try{
-      var docRef = await this.db.collection(AUTH_TABLE).doc(lookupKey).get()
+      var docRef = await this.db.collection(tableName).doc(lookupKey).get()
       return docRef.data()
     }
     catch(e){
