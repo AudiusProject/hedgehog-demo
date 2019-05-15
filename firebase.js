@@ -39,21 +39,6 @@ class Firebase {
     }
   }
   
-  // This should be turned off by default because permissions for "list" have been turned off
-  // can be turned on for debugging purposes
-  async readAllFromFirebase() {
-    try{
-      let data = await this.db.collection(AUTH_TABLE).get()
-  
-      for(var i = 0; i < data.docs.length; i++){
-        console.log(data.docs[i].data())
-      }
-    }
-    catch(e){
-      throw e
-    }
-  }
-  
   async readRecordFromFirebase(obj) {
     let lookupKey = obj.lookupKey
     try{
