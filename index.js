@@ -3,6 +3,10 @@ const useState = React.useState
 const useEffect = React.useEffect
 const useRef = React.useRef
 
+const AUTH_TABLE = 'Authentications'
+const USER_TABLE = 'Users'
+
+
 const messages = {
   signedIn: {
     header: `You're Signed In!`,
@@ -18,9 +22,10 @@ const messages = {
 }
 
 const firebase = new Firebase()
-const setFn = async (obj) => firebase.createIfNotExists(obj)
-const getFn = async (obj) => firebase.readRecordFromFirebase(obj.lookupKey)
-const hedgehog = new Hedgehog(getFn, setFn)
+const setAuthFn = async (obj) => firebase.createIfNotExists(AUTH_TABLE, obj.lookupKey, obj)
+const setUserFn = async (obj) => firebase.createIfNotExists(USER_TABLE, obj.email, obj)
+const getFn = async (obj) => firebase.readRecordFromFirebase(obj)
+const hedgehog = new Hedgehog(getFn, setAuthFn, setUserFn)
 
 const Tabs = (props) => {
   return (
