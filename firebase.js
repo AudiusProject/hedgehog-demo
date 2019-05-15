@@ -1,3 +1,4 @@
+const AUTH_TABLE = 'Authentications'
 class Firebase {
 
   constructor() {
