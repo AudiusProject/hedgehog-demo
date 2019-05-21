@@ -1,0 +1,4 @@
+{
+  "dbUrl": "postgres://postgres:postgres@docker.for.mac.localhost:5432/hedgehog_demo",
+  "port": 3001
+}
