@@ -1,7 +1,7 @@
 const models = require('../models')
 const { handleResponse, successResponse, errorResponseBadRequest } = require('../apiHelpers')
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
 
 /**
  * Create record in Users table
@@ -32,4 +32,4 @@ router.post('/', handleResponse(async (req, res, next) => {
   } else return errorResponseBadRequest('Missing one of the required fields: email, walletAddress')
 }))
 
-module.exports = router;
+module.exports = router

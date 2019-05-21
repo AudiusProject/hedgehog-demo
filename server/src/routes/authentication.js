@@ -1,7 +1,7 @@
 const models = require('../models')
 const { handleResponse, successResponse, errorResponseBadRequest } = require('../apiHelpers')
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
 
 /**
  * Create record in Authentications table
@@ -37,7 +37,9 @@ router.get('/', handleResponse(async (req, res, next) => {
     if (existingAuth) {
       return successResponse(existingAuth)
     } else return errorResponseBadRequest('Email or password is incorrect')
-  } else return errorResponseBadRequest('Missing field: lookupKey')
+  }
+
+  return errorResponseBadRequest('Missing field: lookupKey')
 }))
 
-module.exports = router;
+module.exports = router
