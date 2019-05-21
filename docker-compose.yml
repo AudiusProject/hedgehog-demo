@@ -9,12 +9,16 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     ports:
       - '5432:5432'
-  hedgehog-demo:
+  hedgehog-demo-server:
     build: ./server/.
     depends_on:
       - db
     ports:
       - '3001:3001'
+  hedgehog-demo-client:
+    build: ./client/.
+    ports:
+      - '8000:8000'
 
 volumes:
   postgres_data:
