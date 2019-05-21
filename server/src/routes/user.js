@@ -5,9 +5,9 @@ var router = express.Router()
 
 /**
  * Create record in Users table
+ * body should contain {email, walletAddress}
  */
 router.post('/', handleResponse(async (req, res, next) => {
-  // body should contain {email, walletAddress}
   let body = req.body
   if (body.email && body.walletAddress) {
     const email = body.email.toLowerCase()
