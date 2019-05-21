@@ -22,9 +22,46 @@ const messages = {
 }
 
 const firebase = new Firebase()
-const setAuthFn = async (obj) => firebase.createIfNotExists(AUTH_TABLE, obj.lookupKey, obj)
-const setUserFn = async (obj) => firebase.createIfNotExists(USER_TABLE, obj.email, obj)
-const getFn = async (obj) => firebase.readRecordFromFirebase(AUTH_TABLE, obj)
+
+const requestToServer = async (axiosRequestObj) => {
+  axiosRequestObj.baseURL = 'http://localhost:3001/'
+
+  try {
+    const resp = await axios(axiosRequestObj)
+    if (resp.status === 200) {
+      return resp.data
+    } else {
+      throw new Error('Server returned error: ' + resp.status.toString() + ' ' + resp.data['error'])
+    }
+  } catch (e) {
+    throw new Error('Server returned error: ' + e.response.status.toString() + ' ' + e.response.data['error'])
+  }
+}
+
+const setAuthFn = async (obj) => {
+  await requestToServer({
+    url: '/authentication',
+    method: 'post',
+    data: obj
+  })
+}
+
+const setUserFn = async (obj) => {
+  await requestToServer({
+    url: '/user',
+    method: 'post',
+    data: obj
+  })
+}
+
+const getFn = async (obj) => {
+  return requestToServer({
+    url: '/authentication',
+    method: 'get',
+    params: obj
+  })
+}
+
 const hedgehog = new Hedgehog(getFn, setAuthFn, setUserFn)
 
 const Tabs = (props) => {
