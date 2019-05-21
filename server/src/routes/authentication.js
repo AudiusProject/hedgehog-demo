@@ -3,8 +3,11 @@ const { handleResponse, successResponse, errorResponseBadRequest } = require('..
 var express = require('express');
 var router = express.Router();
 
+/**
+ * Create record in Authentications table
+ * req.body should contain {iv, cipherText, lookupKey}
+ */
 router.post('/', handleResponse(async (req, res, next) => {
-  // body should contain {iv, cipherText, lookupKey}
   let body = req.body
   if (body && body.iv && body.cipherText && body.lookupKey) {
     try {
@@ -17,6 +20,10 @@ router.post('/', handleResponse(async (req, res, next) => {
   } else return errorResponseBadRequest('Missing one of the required fields: iv, cipherText, lookupKey')
 }))
 
+/**
+ * Check if a authentication record exists in the database.
+ * @param lookupKey {String} primary key in the db used to lookup auth records
+ */
 router.get('/', handleResponse(async (req, res, next) => {
   let queryParams = req.query
 
