@@ -12,12 +12,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
-
     walletAddress: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE
     }
-  }, {})
+  })
 
   return User
 }

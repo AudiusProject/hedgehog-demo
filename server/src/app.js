@@ -1,7 +1,7 @@
-var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
+var cors = require('cors')
 
 var authRouter = require('./routes/authentication');
 var userRouter = require('./routes/user');
@@ -16,9 +16,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors())
 
 app.get('/', function(req, res, next) {
-  res.status(200).send();
+  res.status(200).send('The server is up! Please hit one of the API endpoints to use the server');
 });
 
 app.use('/authentication', authRouter);

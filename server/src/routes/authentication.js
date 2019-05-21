@@ -3,11 +3,6 @@ const { handleResponse, successResponse, errorResponseBadRequest } = require('..
 var express = require('express');
 var router = express.Router();
 
-/**
-   * This signup function writes the encryption values from the user's browser(iv, cipherText, lookupKey)
-   * into the Authentications table and the email to the Users table. This is the first step in the
-   * authentication process
-   */
 router.post('/', handleResponse(async (req, res, next) => {
   // body should contain {iv, cipherText, lookupKey}
   let body = req.body
@@ -25,29 +20,17 @@ router.post('/', handleResponse(async (req, res, next) => {
 router.get('/', handleResponse(async (req, res, next) => {
   let queryParams = req.query
 
-  if (queryParams && queryParams.lookupKey && queryParams.email) {
-    const email = queryParams.email.toLowerCase()
-    const existingUser = await models.Authentication.findOne({
+  if (queryParams && queryParams.lookupKey) {
+    const existingAuth = await models.Authentication.findOne({
       where: {
         lookupKey: queryParams.lookupKey
       }
     })
 
-    let userObj = await models.User.findOne({
-      where: {
-        email: email
-      }
-    })
-
-    // This is a boolean that returns to the frontend if the user has been fully configured
-    if (userObj && userObj.isConfigured && existingUser) {
-      existingUser.dataValues.isConfigured = true
-    }
-
-    if (existingUser) {
-      return successResponse(existingUser)
+    if (existingAuth) {
+      return successResponse(existingAuth)
     } else return errorResponseBadRequest('Email or password is incorrect')
-  } else return errorResponseBadRequest('Missing field: lookupKey or email')
+  } else return errorResponseBadRequest('Missing field: lookupKey')
 }))
 
 module.exports = router;

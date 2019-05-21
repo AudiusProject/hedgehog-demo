@@ -14,9 +14,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       primaryKey: true
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE
     }
-  }, {
-    paranoid: true
   })
 
   return Authentication
