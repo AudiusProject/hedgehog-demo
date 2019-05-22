@@ -3,7 +3,6 @@
 </p>
 
 <br />
-<br />
 
 # Audius Hedgehog Demo
 Client and server demo for Audius Hedgehog written using React, node.js, Express and Postgres.
