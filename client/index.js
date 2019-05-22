@@ -17,6 +17,7 @@ const messages = {
     body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Massa tempor nec feugiat nisl pretium.`
   },
   invalid: `Incorrect email or password. Try again.`,
+  empty: `Please enter an email and password.`,
   exists: `Account already exists, please try logging in.`,
   mismatched: `The passwords you entered don't match.`
 }
@@ -147,6 +148,8 @@ const App = (props) => {
   const handleSignUp = async (event) => {
     if (password !== passwordConfirmation) {
       setErrorMessage(messages.mismatched)
+    } else if (!password || !email || !passwordConfirmation) {
+      setErrorMessage(messages.empty)
     } else {
       setLoading(true)
       setErrorMessage('')
@@ -209,7 +212,11 @@ const App = (props) => {
             {/* Create Account Tab */}
             <div className='form'>
               <div className='fields'>
-                <input placeholder='Email' onChange={(e) => setEmail(e.target.value)}/>
+                <input
+                  className={errorMessage && !email ? 'error' : null}
+                  placeholder='Email'
+                  onChange={(e) => setEmail(e.target.value)}
+                />
                 <input
                   className={errorMessage ? 'error' : null}
                   placeholder='Password'
