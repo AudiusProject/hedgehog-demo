@@ -5,7 +5,7 @@
 <br />
 
 # Audius Hedgehog Demo
-Client and server demo for Audius Hedgehog written using React, node.js, Express and Postgres.
+Client and server demo for [Audius Hedgehog](https://github.com/AudiusProject/audius-hedgehog) written using React, node.js, Express and Postgres.
 
 For documentation, please read the [Hedgehog docs](https://audius-project.github.io/hedgehog-docs).
 
