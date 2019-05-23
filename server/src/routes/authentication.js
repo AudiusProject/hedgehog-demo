@@ -38,7 +38,7 @@ router.get('/', handleResponse(async (req, res, next) => {
       return successResponse(existingAuth)
     }
     
-    return errorResponseBadRequest('Email or password is incorrect')
+    return errorResponseBadRequest('Username or password is incorrect')
   }
 
   return errorResponseBadRequest('Missing field: lookupKey')

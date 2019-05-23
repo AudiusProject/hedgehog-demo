@@ -5,15 +5,16 @@ var router = express.Router()
 
 /**
  * Create record in Users table
- * body should contain {email, walletAddress}
+ * body should contain {username, walletAddress}
  */
 router.post('/', handleResponse(async (req, res, next) => {
   let body = req.body
-  if (body.email && body.walletAddress) {
-    const email = body.email.toLowerCase()
+  console.log(body)
+  if (body.username && body.walletAddress) {
+    const username = body.username.toLowerCase()
     const existingUser = await models.User.findOne({
       where: {
-        email: email
+        username: username
       }
     })
 
@@ -22,14 +23,14 @@ router.post('/', handleResponse(async (req, res, next) => {
     }
 
     try {
-      await models.User.create({ email: email, walletAddress: body.walletAddress })
+      await models.User.create({ username: username, walletAddress: body.walletAddress })
 
       return successResponse()
     } catch (err) {
       console.error('Error signing up a user', err)
       return errorResponseBadRequest('Error signing up a user')
     }
-  } else return errorResponseBadRequest('Missing one of the required fields: email, walletAddress')
+  } else return errorResponseBadRequest('Missing one of the required fields: username, walletAddress')
 }))
 
 module.exports = router
