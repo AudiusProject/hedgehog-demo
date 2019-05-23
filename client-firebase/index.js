@@ -25,7 +25,7 @@ const firebase = new Firebase();
 const setAuthFn = async obj =>
   firebase.createIfNotExists(AUTH_TABLE, obj.lookupKey, obj);
 const setUserFn = async obj =>
-  firebase.createIfNotExists(USER_TABLE, obj.email, obj);
+  firebase.createIfNotExists(USER_TABLE, obj.username, obj);
 const getFn = async obj => firebase.readRecordFromFirebase(AUTH_TABLE, obj);
 const hedgehog = new Hedgehog(getFn, setAuthFn, setUserFn);
 
