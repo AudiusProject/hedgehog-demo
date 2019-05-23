@@ -9,15 +9,17 @@ Client and server demo for [Audius Hedgehog](https://github.com/AudiusProject/au
 
 For documentation, please read the [Hedgehog docs](https://audius-project.github.io/hedgehog-docs).
 
-The [client](/client) folder contains a simple authentication app written in React using Hedgehog.
+## Demo with a Firebase backend 🌐
 
-The [server](/server) folder demonstrates the database structure and server endpoints to persist information while using the Hedgehog module.
-
-## Demo with a Firebase backend
+The [client-firebase](/client-firebase) folder contains a simple authentication app written in React using Hedgehog that connects to a Firebase backend.
 
 A deployment of the client code against a Firebase backend can be found on [CodeSandbox](https://codesandbox.io/embed/pp9zzv2n00).
 
-## Demo with a local backend
+## Demo with a local backend 💻
+
+The [client](/client) folder contains a simple authentication app written in React using Hedgehog (largely identical to /client-firebase).
+
+The [server](/server) folder demonstrates the database structure and server endpoints to persist information while using the Hedgehog module.
 
 To run, make sure you have Docker installed.
 
