@@ -6,28 +6,29 @@ const useRef = React.useRef;
 const AUTH_TABLE = "Authentications";
 const USER_TABLE = "Users";
 
+const firebase = new Firebase();
+const setAuthFn = async obj =>
+firebase.createIfNotExists(AUTH_TABLE, obj.lookupKey, obj);
+const setUserFn = async obj =>
+firebase.createIfNotExists(USER_TABLE, obj.username, obj);
+const getFn = async obj => firebase.readRecordFromFirebase(AUTH_TABLE, obj);
+const hedgehog = new Hedgehog(getFn, setAuthFn, setUserFn);
+
 const messages = {
   signedIn: {
     header: `You're Signed In!`,
-    body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Massa tempor nec feugiat nisl pretium.`
+    body: `You just created an account using Hedgehog! Now, if you log out you will be able to sign back in with the same credentials.`
   },
   signedOut: {
     header: `You're Not Signed In`,
-    body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Massa tempor nec feugiat nisl pretium.`
+    body: `You are currently unauthenticated / signed out.`,
+    instructions: `Go ahead and create an account just like you would a centralized service.`
   },
-  invalid: `Incorrect email or password. Try again.`,
-  empty: `Please enter an email and password.`,
+  invalid: `Incorrect username or password. Try again.`,
+  empty: `Please enter a username and password.`,
   exists: `Account already exists, please try logging in.`,
   mismatched: `The passwords you entered don't match.`
-};
-
-const firebase = new Firebase();
-const setAuthFn = async obj =>
-  firebase.createIfNotExists(AUTH_TABLE, obj.lookupKey, obj);
-const setUserFn = async obj =>
-  firebase.createIfNotExists(USER_TABLE, obj.username, obj);
-const getFn = async obj => firebase.readRecordFromFirebase(AUTH_TABLE, obj);
-const hedgehog = new Hedgehog(getFn, setAuthFn, setUserFn);
+}
 
 const Tabs = props => {
   return (
@@ -85,7 +86,7 @@ const Link = props => {
 };
 
 const App = props => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [signedIn, setSignedIn] = useState(false);
@@ -114,13 +115,13 @@ const App = props => {
   const handleSignUp = async event => {
     if (password !== passwordConfirmation) {
       setErrorMessage(messages.mismatched);
-    } else if (!password || !email || !passwordConfirmation) {
+    } else if (!password || !username || !passwordConfirmation) {
       setErrorMessage(messages.empty);
     } else {
       setLoading(true);
       setErrorMessage("");
       try {
-        await hedgehog.signUp(email, password);
+        await hedgehog.signUp(username, password);
         checkWalletStatus();
       } catch (e) {
         console.error(e);
@@ -134,7 +135,7 @@ const App = props => {
     setErrorMessage("");
     setLoading(true);
     try {
-      await hedgehog.login(email, password);
+      await hedgehog.login(username, password);
       checkWalletStatus();
     } catch (e) {
       console.error(e);
@@ -150,10 +151,30 @@ const App = props => {
 
   const logout = () => {
     hedgehog.logout();
+    setUsername('');
+    setPassword('');
+    setPasswordConfirmation('');
     checkWalletStatus();
   };
 
+  const registerEnterKey = () => {
+    document.onkeydown = (e) => {
+      e = e || window.event;
+      switch (e.which || e.keyCode) {
+        case 13:
+          if (!signedIn && activeTab === 0) {
+            handleSignUp();
+          }
+          if (!signedIn && activeTab === 1) {
+            handleLogin();
+          }
+          break;
+      }
+    }
+  }
+
   useEffect(() => {
+    registerEnterKey();
     checkWalletStatus();
   });
 
@@ -164,6 +185,8 @@ const App = props => {
           <Pill text="authenticated" />
           <h1>{messages.signedIn.header}</h1>
           <p>{messages.signedIn.body}</p>
+          <p>Your wallet address is:</p>
+          <p className="address">{hedgehog.getWallet().getAddressString()}</p>
           <Button loading={loading} onClick={logout} text="Log Out" />
         </div>
       ) : (
@@ -177,9 +200,9 @@ const App = props => {
             <div className="form">
               <div className="fields">
                 <input
-                  className={errorMessage && !email ? "error" : null}
-                  placeholder="Email"
-                  onChange={e => setEmail(e.target.value)}
+                  className={errorMessage && !username ? "error" : null}
+                  placeholder="Username"
+                  onChange={e => setUsername(e.target.value)}
                 />
                 <input
                   className={errorMessage ? "error" : null}
@@ -215,8 +238,8 @@ const App = props => {
             <div className="form">
               <div className="fields">
                 <input
-                  placeholder="Email"
-                  onChange={e => setEmail(e.target.value)}
+                  placeholder="Username"
+                  onChange={e => setUsername(e.target.value)}
                 />
                 <div>
                   <input
@@ -240,10 +263,11 @@ const App = props => {
             </div>
           </Tabs>
 
-          <div className="message">
+          <div className="message unauthenticated">
             <Pill text="unauthenticated" />
             <h1>{messages.signedOut.header}</h1>
             <p>{messages.signedOut.body}</p>
+            <p>{messages.signedOut.instructions}</p>
           </div>
         </>
       )}

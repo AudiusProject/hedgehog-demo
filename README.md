@@ -29,4 +29,11 @@ docker-compose up
 
 Once the server has started, visit `http://localhost:8000`
 
+
+To make changes to /client or /server, run
+
+```
+docker-compose up --build
+```
+
 **NOTE**: If you're running the demo on windows or linux, you may need to change the `dbUrl` property in `server/default-config.json`. Docker for Mac needs special networking so the host is set to `docker.for.mac.localhost`. https://docs.docker.com/v17.09/docker-for-mac/networking/
