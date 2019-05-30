@@ -1,0 +1,374 @@
+/* Begin Manual Font Imports */
+@font-face {
+  font-family: "Avenir Next LT Pro";
+  font-style: normal;
+  font-weight: 100;
+  src: url("https://download.audius.co/fonts/AvenirNextLTPro-UltLt.ttf")
+      format("truetype"),
+    url("https://download.audius.co/fonts/AvenirNextLTPro-UltLt.otf")
+      format("opentype");
+}
+@font-face {
+  font-family: "Avenir Next LT Pro";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://download.audius.co/fonts/AvenirNextLTPro-Regular.ttf")
+      format("truetype"),
+    url("https://download.audius.co/fonts/AvenirNextLTPro-Regular.otf")
+      format("opentype");
+}
+@font-face {
+  font-family: "Avenir Next LT Pro";
+  font-style: normal;
+  font-weight: 500;
+  src: url("https://download.audius.co/fonts/AvenirNextLTPro-Medium.ttf")
+      format("truetype"),
+    url("https://download.audius.co/fonts/AvenirNextLTPro-Medium.otf")
+      format("opentype");
+}
+@font-face {
+  font-family: "Avenir Next LT Pro";
+  font-style: normal;
+  font-weight: 600;
+  src: url("https://download.audius.co/fonts/AvenirNextLTPro-Demi-Bold.ttf")
+      format("truetype"),
+    url("https://download.audius.co/fonts/AvenirNextLTPro-Demi-Bold.otf")
+      format("opentype");
+}
+@font-face {
+  font-family: "Avenir Next LT Pro";
+  font-style: normal;
+  font-weight: 700;
+  src: url("https://download.audius.co/fonts/AvenirNextLTPro-Bold.ttf")
+      format("truetype"),
+    url("https://download.audius.co/fonts/AvenirNextLTPro-Bold.otf")
+      format("opentype");
+}
+@font-face {
+  font-family: "Avenir Next LT Pro";
+  font-style: normal;
+  font-weight: 900;
+  src: url("https://download.audius.co/fonts/AvenirNextLTPro-Heavy.ttf")
+      format("truetype"),
+    url("https://download.audius.co/fonts/AvenirNextLTPro-Heavy.otf")
+      format("opentype");
+}
+/* End Manual Font Imports */
+
+body {
+  font-family: "Avenir Next LT Pro", "Helvetica Neue", Helvetica, Arial,
+    sans-serif !important;
+  box-sizing: border-box;
+}
+
+/* COMPONENTS */
+
+/* Tabs */
+
+.tabs {
+  width: 360px;
+}
+
+.tabs > .headers {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.tabs > .headers > .tab {
+  width: 50%;
+  height: 50px;
+  background-color: #e7e6eb;
+  border-radius: 16px 16px 0px 0px;
+  color: #484459;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.1px;
+  text-align: center;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabs > .headers > .tab.active {
+  background-color: #ffffff;
+}
+
+.tabs > .content {
+  height: 215px;
+  border-radius: 0px 0px 8px 8px;
+  background-color: #ffffff;
+  box-shadow: 0 16px 20px 0 rgba(232, 228, 234, 0.5);
+  padding: 30px 32px;
+}
+
+/* Pill */
+
+.pill {
+  padding: 0px 20px;
+  height: 32px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.25px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 5px 0 rgba(132, 177, 124, 0.5);
+}
+
+.pill.green {
+  background-color: #42c329;
+}
+
+.pill.red {
+  background-color: #d0021b;
+}
+
+/* Button */
+
+.button {
+  cursor: pointer;
+  height: 40px;
+  border-radius: 4px;
+  background-color: #9070b7;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.07s ease-in-out;
+  padding: 0px 50px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.1px;
+  margin: 40px 0px;
+  position: relative;
+  user-select: none;
+}
+
+.tabs .button {
+  margin: 0px 0px 22px 0px;
+}
+
+.button.fullWidth {
+  width: 100%;
+  padding: 0;
+}
+
+.button.loading {
+  background-color: #c2c2c2;
+  cursor: default;
+}
+
+.button:hover {
+  transform: scale(1.04);
+  background-color: #a782d4;
+}
+
+.button.loading:hover {
+  transform: none;
+  background-color: #c2c2c2;
+}
+
+.button:active {
+  transform: scale(1);
+  background-color: #6e568c;
+}
+
+.button.loading:active {
+  transform: none;
+  background-color: #c2c2c2;
+}
+
+/* Spinner */
+
+.spinner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 20px;
+  animation: animate 2.5s infinite ease-in-out both;
+  text-align: left;
+}
+
+.spinner > div {
+  width: 20px;
+  height: 2px;
+  margin-top: 28px;
+  background-color: #ffffff;
+  display: inline-block;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(calc(100% - 20px));
+  }
+}
+
+/* Link */
+
+.link {
+  color: #7e1ccc;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+  transition: all 0.07s ease-in-out;
+  text-align: center;
+}
+
+.link span:hover {
+  border-bottom: 1px solid #7e1ccc;
+}
+
+/* Type */
+
+h1 {
+  color: #484459;
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 0.67px;
+  margin: 20px 0px 0px 0px;
+}
+
+p {
+  margin: 20px 0px 0px 0px;
+  color: #8d7d9d;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.37px;
+  line-height: 27px;
+}
+
+p.error {
+  color: #ff0000;
+  font-size: 12px;
+  font-weight: 500;
+  height: 16px;
+  margin: 5px 0;
+  justify-self: end;
+}
+
+input {
+  width: 100%;
+  height: 32px;
+  border: 1px solid #c2c2c2;
+  outline: none;
+  border-radius: 4px;
+
+  color: #000000;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  padding: 0px 8px;
+
+  transition: all 0.07s ease-in-out;
+}
+
+input:hover {
+  border: 1px solid #9d9aad;
+}
+
+input:focus {
+  border: 1px solid #7e1ccc;
+}
+
+input.error {
+  border: 1px solid #ff0000;
+}
+
+input::placeholder {
+  color: #c2c2c2;
+}
+
+/* APP */
+
+.app {
+  margin: 0 auto;
+  max-width: 1200px;
+  min-height: 440px;
+  border-radius: 16px;
+  padding: 24px;
+  background-color: #f2f2f4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.app > div {
+  padding: 24px;
+}
+
+@media only screen and (max-width: 600px) {
+  .app {
+    padding: 0px;
+  }
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  max-width: 588px;
+}
+
+p.address {
+  margin: 0;
+  font-size: 12px;
+}
+
+.message.unauthenticated {
+  text-align: left;
+  align-items: flex-start;
+}
+
+@media only screen and (max-width: 1107px) {
+  .message.message.unauthenticated {
+    text-align: center;
+    align-items: center;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .app > div {
+    width: 100%;
+    margin-bottom: 24px;
+  }
+}
+
+.form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.fields {
+  flex-grow: 1;
+  width: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.fields > * {
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  justify-self: flex-end;
+}

@@ -1,0 +1,24 @@
+version: '3'
+services:
+  db:
+    image: postgres:11.1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: hedgehog_demo
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - '5432:5432'
+  hedgehog-demo-server:
+    build: ./server/.
+    depends_on:
+      - db
+    ports:
+      - '3001:3001'
+  hedgehog-demo-client:
+    build: ./client/.
+    ports:
+      - '8000:8000'
+
+volumes:
+  postgres_data:
