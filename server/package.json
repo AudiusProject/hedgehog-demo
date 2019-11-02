@@ -15,7 +15,7 @@
     "morgan": "~1.9.1",
     "nconf": "^0.10.0",
     "pg": "^7.11.0",
-    "sequelize": "^5.8.6",
+    "sequelize": "^5.15.1",
     "umzug": "^2.2.0"
   },
   "devDependencies": {
